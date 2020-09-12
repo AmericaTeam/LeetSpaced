@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "610673164661",
+    "firebase_url": "https://leet-spaced.firebaseio.com",
+    "project_id": "leet-spaced",
+    "storage_bucket": "leet-spaced.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610673164661:android:b8dab68485d1cf8bf9d33c",
+        "android_client_info": {
+          "package_name": "com.leetspaced.leetspaced"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610673164661-h202ghgogv82bgdc7plt35j2n9qtn4kc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVbDgQVSybLkQ2pH16EHenGRyH-N6P1Zg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610673164661-h202ghgogv82bgdc7plt35j2n9qtn4kc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
