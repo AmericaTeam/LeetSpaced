@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Leet Spaced</string>
+    <string name="today_tab_label">Today</string>
+    <string name="home_tab_label">Home</string>
+    <string name="stats_tab_label">Stats</string>
+
+    <!--Theme Preference Strings-->
+    <string name="pref_theme_summary">Theme</string>
+
+    <string name="pref_theme_label_system_default">System Default</string>
+    <string name="pref_theme_label_light">Light</string>
+    <string name="pref_theme_label_dark">Dark</string>
+
+    <string name="pref_theme_key_system_default" translatable="false">System Default</string>
+    <string name="pref_theme_key_light" translatable="false">Light</string>
+    <string name="pref_theme_key_dark" translatable="false">Dark</string>
+
+    <!--Main Menu-->
+    <string name="settings_menu_option_title">Settings</string>
+    <string name="pref_theme_title">Select Theme</string>
+    <string name="pref_theme_key" translatable="false">theme</string>
+    <string name="bucket_one_duration_label">Reminder 1 Duration</string>
+    <string name="bucket_one_duration_key">bucket_one_duration_key</string>
+    <string name="bucket_two_duration_label">Reminder 2 Duration</string>
+    <string name="bucket_two_duration_key">bucket_one_duration_key</string>
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/page_today"
+        android:enabled="true"
+        android:title="@string/today_tab_label"/>
+    <item
+        android:id="@+id/page_home"
+        android:enabled="true"
+        android:title="@string/home_tab_label"/>
+    <item
+        android:id="@+id/page_stats"
+        android:enabled="true"
+        android:title="@string/stats_tab_label"/>
+</menu>
