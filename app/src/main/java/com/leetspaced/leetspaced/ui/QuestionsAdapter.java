@@ -1,4 +1,4 @@
-package com.leetspaced.leetspaced.ui.home;
+package com.leetspaced.leetspaced.ui;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,9 +15,10 @@ import com.leetspaced.leetspaced.database.Question;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.QuestionsAdapterViewHolder> {
 
-    interface ListItemClickListener{
+    public interface ListItemClickListener{
         void onListItemClick(int position);
     }
+
     final private ListItemClickListener mOnClickListener;
     private Question[] mQuestions;
 
@@ -29,7 +30,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
         public final Chip difficultyChip;
         public final TextView number;
         public final  TextView title;
-//        public final Chip difficulty;
         public final TextView bucket;
 
 
