@@ -10,16 +10,22 @@ import com.leetspaced.leetspaced.database.AppDatabase;
 import com.leetspaced.leetspaced.database.Question;
 
 public class MainViewModel extends AndroidViewModel {
+    AppDatabase appDatabase;
     LiveData<Question[]> allQuestions;
+    Repository repository;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
-
-        AppDatabase appDatabase = AppDatabase.getInstance(application.getApplicationContext());
+        repository = new Repository(application);
+        appDatabase = AppDatabase.getInstance(application.getApplicationContext());
         allQuestions = appDatabase.questionDao().getAllQuestions();
     }
 
     public LiveData<Question[]> getAllQuestions() {
         return allQuestions;
+    }
+
+    public void updateQuestion(Question question) {
+        repository.updateQuestion(question);
     }
 }
