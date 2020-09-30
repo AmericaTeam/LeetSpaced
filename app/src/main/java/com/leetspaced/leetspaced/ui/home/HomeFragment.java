@@ -17,17 +17,19 @@ import android.view.ViewGroup;
 import com.leetspaced.leetspaced.MainViewModel;
 import com.leetspaced.leetspaced.R;
 import com.leetspaced.leetspaced.database.Question;
+import com.leetspaced.leetspaced.ui.QuestionsAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemClickListener{
+public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemClickListener, QuestionDetailsDialog.QuestionProvider{
 
     private static final String TAG = HomeFragment.class.getSimpleName();
     private MainViewModel viewModel;
     private Question[] mQuestions;
+    private Question lastClickedQuestion;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -107,7 +109,19 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
 
     @Override
     public void onListItemClick(final int position) {
-        // TODO: Handle list item click
+        lastClickedQuestion = mQuestions[position];
+        QuestionDetailsDialog questionDetailsDialog = QuestionDetailsDialog.newInstance();
+        questionDetailsDialog.show(getChildFragmentManager(), "QuestionDetailsDialog");
         Log.d(TAG, mQuestions[position].getTitle());
+    }
+
+    @Override
+    public Question getClickedQuestion() {
+        return lastClickedQuestion;
+    }
+
+    @Override
+    public void updateClickedQuestion(Question question) {
+        viewModel.updateQuestion(question);
     }
 }

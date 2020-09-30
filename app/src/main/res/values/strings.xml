@@ -23,4 +23,6 @@
     <string name="bucket_one_duration_key">bucket_one_duration_key</string>
     <string name="bucket_two_duration_label">Reminder 2 Duration</string>
     <string name="bucket_two_duration_key">bucket_one_duration_key</string>
+    <string name="question_details_dialog_negative_text">Cancel</string>
+    <string name="question_details_dialog_positive_text">Reviewed</string>
 </resources>
