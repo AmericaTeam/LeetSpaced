@@ -32,4 +32,20 @@ public class MainViewModel extends AndroidViewModel {
     public void updateQuestion(Question question) {
         repository.updateQuestion(question);
     }
+
+    public int getUnsolvedQuestionsCount(){
+        return appDatabase.questionDao().countUnsolvedQuestions();
+    }
+
+    public int getSolvedQuestionsCount(){
+        return appDatabase.questionDao().countSolvedQuestions();
+    }
+
+    public int getConfidentQuestionsCount(){
+        return appDatabase.questionDao().countConfidentQuestions();
+    }
+
+    public int getMasteredQuestionsCount(){
+        return appDatabase.questionDao().countMasteredQuestions();
+    }
 }

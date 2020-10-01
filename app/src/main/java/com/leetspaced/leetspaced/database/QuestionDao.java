@@ -17,4 +17,16 @@ public interface QuestionDao {
 
     @Update
     public void updateQuestion(Question question);
+
+    @Query("SELECT COUNT(number) FROM questions WHERE bucket = 0")
+    public int countUnsolvedQuestions();
+
+    @Query("SELECT COUNT(number) FROM questions WHERE bucket = 1")
+    public int countSolvedQuestions();
+
+    @Query("SELECT COUNT(number) FROM questions WHERE bucket = 2")
+    public int countConfidentQuestions();
+
+    @Query("SELECT COUNT(number) FROM questions WHERE bucket = 3")
+    public int countMasteredQuestions();
 }
