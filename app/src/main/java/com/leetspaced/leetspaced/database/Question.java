@@ -6,13 +6,16 @@ import androidx.room.Fts4;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-@Fts4
+import java.sql.Date;
+
+//@Fts4
 @Entity(tableName = "Questions")
 public class Question {
-    @PrimaryKey
-    @ColumnInfo(name = "rowid")
-    private int rowId;
+//    @PrimaryKey
+//    @ColumnInfo(name = "rowid")
+//    private int rowId;
 
+    @PrimaryKey
     @ColumnInfo(name = "number")
     private int number;
 
@@ -32,15 +35,15 @@ public class Question {
     private int bucket;
 
     @ColumnInfo(name = "reminder_date")
-    private long reminderDate;
+    private Date reminderDate;
 
-    public int getRowId() {
-        return rowId;
-    }
-
-    public void setRowId(int rowId) {
-        this.rowId = rowId;
-    }
+//    public int getRowId() {
+//        return rowId;
+//    }
+//
+//    public void setRowId(int rowId) {
+//        this.rowId = rowId;
+//    }
 
     public int getNumber() {
         return number;
@@ -90,11 +93,11 @@ public class Question {
         this.bucket = bucket;
     }
 
-    public long getReminderDate() {
+    public Date getReminderDate() {
         return reminderDate;
     }
 
-    public void setReminderDate(long reminderDate) {
+    public void setReminderDate(Date reminderDate) {
         this.reminderDate = reminderDate;
     }
 }

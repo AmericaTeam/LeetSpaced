@@ -31,7 +31,7 @@ public class QuestionDetailsDialog extends DialogFragment {
     private String personalNotes;
     private int bucket;
 
-    interface QuestionProvider {
+    public interface QuestionProvider {
         Question getClickedQuestion();
         void updateClickedQuestion(Question question);
     }
@@ -105,12 +105,12 @@ public class QuestionDetailsDialog extends DialogFragment {
                 java.util.Date utilDate = new java.util.Date();
                 switch (bucket){
                     case 0:
-                        question.setReminderDate(utilDate.getTime()
-                                + MILLISECONDS_IN_A_DAY * REMINDER_DURATION_ONE);
+                        question.setReminderDate(new java.sql.Date(utilDate.getTime()
+                                + MILLISECONDS_IN_A_DAY * REMINDER_DURATION_ONE));
                         break;
                     case 1:
-                        question.setReminderDate(utilDate.getTime()
-                                + MILLISECONDS_IN_A_DAY * REMINDER_DURATION_TWO);
+                        question.setReminderDate(new java.sql.Date(utilDate.getTime()
+                                + MILLISECONDS_IN_A_DAY * REMINDER_DURATION_TWO));
                         break;
                     case 3:
                         // Since bucket 3 means we have mastered the question

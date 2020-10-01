@@ -25,6 +25,10 @@ public class MainViewModel extends AndroidViewModel {
         return allQuestions;
     }
 
+    public LiveData<Question[]> getTodaysQuestions(long today) {
+        return appDatabase.questionDao().getTodaysQuestions(today);
+    }
+
     public void updateQuestion(Question question) {
         repository.updateQuestion(question);
     }

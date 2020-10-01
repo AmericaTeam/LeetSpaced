@@ -1,5 +1,7 @@
 package com.leetspaced.leetspaced.database;
 
+import android.util.Log;
+
 import androidx.room.TypeConverter;
 
 import java.sql.Date;

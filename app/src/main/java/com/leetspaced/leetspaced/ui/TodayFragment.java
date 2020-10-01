@@ -2,20 +2,34 @@ package com.leetspaced.leetspaced.ui;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.leetspaced.leetspaced.MainViewModel;
 import com.leetspaced.leetspaced.R;
+import com.leetspaced.leetspaced.database.Question;
+import com.leetspaced.leetspaced.ui.home.QuestionDetailsDialog;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link TodayFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TodayFragment extends Fragment {
+public class TodayFragment extends Fragment implements QuestionsAdapter.ListItemClickListener, QuestionDetailsDialog.QuestionProvider{
+
+    private final String TAG = TodayFragment.class.getSimpleName();
+    private MainViewModel viewModel;
+    private Question[] mQuestions;
+    private Question lastClickedQuestion;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +76,48 @@ public class TodayFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_today, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // Initialize ViewModel
+        viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
+        // All Questions RecyclerView
+        setupRecyclerView(view);
+    }
+
+    private void setupRecyclerView(@NonNull View view) {
+        RecyclerView allQuestionsRecyclerView = view.findViewById(R.id.today_questions_recycler_view);
+        final QuestionsAdapter adapter = new QuestionsAdapter(this);
+        allQuestionsRecyclerView.setAdapter(adapter);
+
+        java.util.Date utilDate = new java.util.Date();
+        viewModel.getTodaysQuestions(utilDate.getTime()).observe(getViewLifecycleOwner(), new Observer<Question[]>() {
+            @Override
+            public void onChanged(Question[] questions) {
+                adapter.setmQuestions(questions);
+                mQuestions = questions;
+            }
+        });
+    }
+
+    @Override
+    public void onListItemClick(final int position) {
+        lastClickedQuestion = mQuestions[position];
+        QuestionDetailsDialog questionDetailsDialog = QuestionDetailsDialog.newInstance();
+        questionDetailsDialog.show(getChildFragmentManager(), "QuestionDetailsDialog");
+        Log.d(TAG, mQuestions[position].getTitle());
+    }
+
+    @Override
+    public Question getClickedQuestion() {
+        return lastClickedQuestion;
+    }
+
+    @Override
+    public void updateClickedQuestion(Question question) {
+        viewModel.updateQuestion(question);
     }
 }

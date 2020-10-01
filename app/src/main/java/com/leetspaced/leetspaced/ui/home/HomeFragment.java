@@ -101,6 +101,7 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
         viewModel.getAllQuestions().observe(getViewLifecycleOwner(), new Observer<Question[]>() {
             @Override
             public void onChanged(Question[] questions) {
+                Log.d(TAG, "getAllQuestions updated");
                 adapter.setmQuestions(questions);
                 mQuestions = questions;
             }
