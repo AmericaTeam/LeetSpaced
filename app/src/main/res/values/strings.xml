@@ -18,11 +18,25 @@
     <!--Main Menu-->
     <string name="settings_menu_option_title">Settings</string>
     <string name="pref_theme_title">Select Theme</string>
+
+    <!--Theme Preference-->
     <string name="pref_theme_key" translatable="false">theme</string>
+
+    <!--Bucket One Duration Preference-->
     <string name="bucket_one_duration_label">Reminder 1 Duration</string>
     <string name="bucket_one_duration_key">bucket_one_duration_key</string>
+
+    <!--Bucket Two Duration Preference-->
     <string name="bucket_two_duration_label">Reminder 2 Duration</string>
     <string name="bucket_two_duration_key">bucket_one_duration_key</string>
+
+    <!--List item Question onClick Dialog-->
     <string name="question_details_dialog_negative_text">Cancel</string>
     <string name="question_details_dialog_positive_text">Reviewed</string>
+
+    <!--Stats Fragment-->
+    <string name="mastered_questions_count_label">Mastered</string>
+    <string name="confident_questions_count_label">Confident</string>
+    <string name="solved_questions_count_label">Solved</string>
+    <string name="unsolved_questions_count_label">Unsolved</string>
 </resources>

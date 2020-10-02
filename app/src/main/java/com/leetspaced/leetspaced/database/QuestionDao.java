@@ -19,14 +19,14 @@ public interface QuestionDao {
     public void updateQuestion(Question question);
 
     @Query("SELECT COUNT(number) FROM questions WHERE bucket = 0")
-    public int countUnsolvedQuestions();
+    public LiveData<Integer> countUnsolvedQuestions();
 
     @Query("SELECT COUNT(number) FROM questions WHERE bucket = 1")
-    public int countSolvedQuestions();
+    public LiveData<Integer> countSolvedQuestions();
 
     @Query("SELECT COUNT(number) FROM questions WHERE bucket = 2")
-    public int countConfidentQuestions();
+    public LiveData<Integer> countConfidentQuestions();
 
     @Query("SELECT COUNT(number) FROM questions WHERE bucket = 3")
-    public int countMasteredQuestions();
+    public LiveData<Integer> countMasteredQuestions();
 }
