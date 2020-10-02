@@ -10,42 +10,38 @@ import com.leetspaced.leetspaced.database.AppDatabase;
 import com.leetspaced.leetspaced.database.Question;
 
 public class MainViewModel extends AndroidViewModel {
-    AppDatabase appDatabase;
-    LiveData<Question[]> allQuestions;
     Repository repository;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository(application);
-        appDatabase = AppDatabase.getInstance(application.getApplicationContext());
-        allQuestions = appDatabase.questionDao().getAllQuestions();
     }
 
     public LiveData<Question[]> getAllQuestions() {
-        return allQuestions;
+        return repository.getAllQuestions();
     }
 
     public LiveData<Question[]> getTodaysQuestions(long today) {
-        return appDatabase.questionDao().getTodaysQuestions(today);
+        return repository.getTodaysQuestions(today);
     }
 
     public void updateQuestion(Question question) {
         repository.updateQuestion(question);
     }
 
-    public int getUnsolvedQuestionsCount(){
-        return appDatabase.questionDao().countUnsolvedQuestions();
+    public LiveData<Integer> getUnsolvedQuestionsCount(){
+        return repository.getUnsolvedQuestionsCount();
     }
 
-    public int getSolvedQuestionsCount(){
-        return appDatabase.questionDao().countSolvedQuestions();
+    public LiveData<Integer> getSolvedQuestionsCount(){
+        return repository.getSolvedQuestionsCount();
     }
 
-    public int getConfidentQuestionsCount(){
-        return appDatabase.questionDao().countConfidentQuestions();
+    public LiveData<Integer> getConfidentQuestionsCount(){
+        return repository.getConfidentQuestionsCount();
     }
 
-    public int getMasteredQuestionsCount(){
-        return appDatabase.questionDao().countMasteredQuestions();
+    public LiveData<Integer> getMasteredQuestionsCount(){
+        return repository.getMasteredQuestionsCount();
     }
 }

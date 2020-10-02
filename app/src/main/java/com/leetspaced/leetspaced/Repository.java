@@ -2,6 +2,9 @@ package com.leetspaced.leetspaced;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.leetspaced.leetspaced.database.AppDatabase;
 import com.leetspaced.leetspaced.database.Question;
 import com.leetspaced.leetspaced.database.QuestionDao;
@@ -14,6 +17,10 @@ public class Repository {
     Repository(Application application){
         AppDatabase appDatabase = AppDatabase.getInstance(application.getApplicationContext());
         mQuestionDao = appDatabase.questionDao();
+    }
+
+    public LiveData<Question[]> getAllQuestions() {
+        return mQuestionDao.getAllQuestions();
     }
 
     public void updateQuestion(final Question question){
@@ -33,5 +40,25 @@ public class Repository {
         }
         mThread = new Thread(updateQuestionRunnable);
         mThread.start();
+    }
+
+    public LiveData<Question[]> getTodaysQuestions(long today) {
+        return mQuestionDao.getTodaysQuestions(today);
+    }
+
+    public LiveData<Integer> getUnsolvedQuestionsCount(){
+        return mQuestionDao.countUnsolvedQuestions();
+    }
+
+    public LiveData<Integer> getSolvedQuestionsCount(){
+        return mQuestionDao.countSolvedQuestions();
+    }
+
+    public LiveData<Integer> getConfidentQuestionsCount(){
+        return mQuestionDao.countConfidentQuestions();
+    }
+
+    public LiveData<Integer> getMasteredQuestionsCount(){
+        return mQuestionDao.countMasteredQuestions();
     }
 }

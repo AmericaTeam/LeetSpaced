@@ -2,12 +2,18 @@ package com.leetspaced.leetspaced.ui;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.leetspaced.leetspaced.MainViewModel;
 import com.leetspaced.leetspaced.R;
 
 /**
@@ -21,6 +27,11 @@ public class StatsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private TextView mMasteredQuestions;
+    private TextView mConfidentQuestions;
+    private TextView mSolvedQuestions;
+    private TextView mUnsolvedQuestions;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -62,5 +73,44 @@ public class StatsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_stats, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mMasteredQuestions = view.findViewById(R.id.mastered_questions_count_text_view);
+        mConfidentQuestions = view.findViewById(R.id.confident_questions_count_text_view);
+        mSolvedQuestions = view.findViewById(R.id.solved_questions_count_text_view);
+        mUnsolvedQuestions = view.findViewById(R.id.unsolved_questions_count_text_view);
+
+        MainViewModel viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
+        viewModel.getMasteredQuestionsCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                mMasteredQuestions.setText(String.valueOf(integer));
+            }
+        });
+
+        viewModel.getConfidentQuestionsCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                mConfidentQuestions.setText(String.valueOf(integer));
+            }
+        });
+
+        viewModel.getSolvedQuestionsCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                mSolvedQuestions.setText(String.valueOf(integer));
+            }
+        });
+
+        viewModel.getUnsolvedQuestionsCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                mUnsolvedQuestions.setText(String.valueOf(integer));
+            }
+        });
     }
 }
