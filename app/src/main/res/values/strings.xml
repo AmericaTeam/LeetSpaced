@@ -39,4 +39,10 @@
     <string name="confident_questions_count_label">Confident</string>
     <string name="solved_questions_count_label">Solved</string>
     <string name="unsolved_questions_count_label">Unsolved</string>
+
+    <!--Home Fragment Tab Labels-->
+    <string name="tab_all_questions_label">All</string>
+    <string name="tab_solved_questions_label">Solved</string>
+    <string name="tab_confident_questions_label">Confident</string>
+    <string name="tab_mastered_questions_label">Mastered</string>
 </resources>
