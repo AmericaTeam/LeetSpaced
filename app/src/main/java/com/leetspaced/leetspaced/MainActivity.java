@@ -30,11 +30,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Default Fragment
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container_view, TodayFragment.newInstance("1", "2"))
-                .commit();
+        if (savedInstanceState == null) {
+            // Default Fragment
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_view, TodayFragment.newInstance("1", "2"))
+                    .commit();
+        }
 
         // Bottom bar
         mBottomNavigationView = findViewById(R.id.bottom_navigation);

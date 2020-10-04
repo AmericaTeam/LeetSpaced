@@ -42,8 +42,9 @@ public class Repository {
         mThread.start();
     }
 
-    public LiveData<Question[]> getTodaysQuestions(long today) {
-        return mQuestionDao.getTodaysQuestions(today);
+    public LiveData<Question[]> getTodaysQuestions() {
+        java.util.Date utilDate = new java.util.Date();
+        return mQuestionDao.getTodaysQuestions(utilDate.getTime());
     }
 
     public LiveData<Integer> getUnsolvedQuestionsCount(){
@@ -60,5 +61,17 @@ public class Repository {
 
     public LiveData<Integer> getMasteredQuestionsCount(){
         return mQuestionDao.countMasteredQuestions();
+    }
+
+    public LiveData<Question[]> getSolvedQuestions(){
+        return mQuestionDao.getSolvedQuestions();
+    }
+
+    public LiveData<Question[]> getConfidentQuestions(){
+        return mQuestionDao.getConfidentQuestions();
+    }
+
+    public LiveData<Question[]> getMasteredQuestions(){
+        return mQuestionDao.getMasteredQuestions();
     }
 }
