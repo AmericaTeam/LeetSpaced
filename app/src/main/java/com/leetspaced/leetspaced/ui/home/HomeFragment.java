@@ -95,15 +95,16 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
         super.onViewCreated(view, savedInstanceState);
 
         if (savedInstanceState != null) {
+            // Get position of the selected tab before rotation
             selectedTab = savedInstanceState.getInt(STATE_SELECTED_TAB_POSITION);
         }
 
         setupViewModelAndObservers();
-
-        // All Questions RecyclerView
         setupRecyclerView(view);
+        setupTabLayout(view);
+    }
 
-//        TODO: add tablayout onclick
+    private void setupTabLayout(@NonNull View view) {
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         tabLayout.getTabAt(selectedTab).select();
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -198,8 +199,6 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
         RecyclerView allQuestionsRecyclerView = view.findViewById(R.id.all_questions_recycler_view);
         adapter = new QuestionsAdapter(this);
         allQuestionsRecyclerView.setAdapter(adapter);
-//        mQuestions = allQuestions;
-//        adapter.setmQuestions(allQuestions);
     }
 
     @Override
@@ -222,8 +221,8 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        // Save position of the selected tab before rotation
         outState.putInt(STATE_SELECTED_TAB_POSITION, selectedTab);
-
         super.onSaveInstanceState(outState);
     }
 }
