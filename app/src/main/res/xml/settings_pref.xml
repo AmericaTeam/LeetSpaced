@@ -13,14 +13,14 @@
     <EditTextPreference
         android:title="@string/bucket_one_duration_label"
         android:key="@string/bucket_one_duration_key"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:maxLength="2"
         android:defaultValue="4"/>
 
     <EditTextPreference
         android:title="@string/bucket_two_duration_label"
         android:key="@string/bucket_two_duration_key"
-        android:inputType="number"
+        android:inputType="phone"
         android:maxLength="2"
         android:defaultValue="7"/>
 
