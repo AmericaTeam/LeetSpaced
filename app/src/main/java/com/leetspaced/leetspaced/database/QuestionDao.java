@@ -15,6 +15,18 @@ public interface QuestionDao {
     @Query("SELECT * FROM questions WHERE reminder_date < :today AND bucket < 3")
     public LiveData<Question[]> getTodaysQuestions(long today);
 
+    // Get solved questions
+    @Query("SELECT * FROM questions WHERE bucket = 1")
+    public LiveData<Question[]> getSolvedQuestions();
+
+    // Get confident questions
+    @Query("SELECT * FROM questions WHERE bucket = 2")
+    public LiveData<Question[]> getConfidentQuestions();
+
+    // Get mastered questions
+    @Query("SELECT * FROM questions WHERE bucket = 3")
+    public LiveData<Question[]> getMasteredQuestions();
+
     @Update
     public void updateQuestion(Question question);
 

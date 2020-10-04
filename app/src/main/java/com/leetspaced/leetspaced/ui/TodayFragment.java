@@ -93,8 +93,7 @@ public class TodayFragment extends Fragment implements QuestionsAdapter.ListItem
         final QuestionsAdapter adapter = new QuestionsAdapter(this);
         allQuestionsRecyclerView.setAdapter(adapter);
 
-        java.util.Date utilDate = new java.util.Date();
-        viewModel.getTodaysQuestions(utilDate.getTime()).observe(getViewLifecycleOwner(), new Observer<Question[]>() {
+        viewModel.getTodaysQuestions().observe(getViewLifecycleOwner(), new Observer<Question[]>() {
             @Override
             public void onChanged(Question[] questions) {
                 adapter.setmQuestions(questions);

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.tabs.TabLayout;
 import com.leetspaced.leetspaced.MainViewModel;
 import com.leetspaced.leetspaced.R;
 import com.leetspaced.leetspaced.database.Question;
@@ -30,6 +32,14 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
     private MainViewModel viewModel;
     private Question[] mQuestions;
     private Question lastClickedQuestion;
+    private QuestionsAdapter adapter;
+
+    Question[] allQuestions;
+    Question[] solvedQuestions;
+    Question[] confidentQuestions;
+    Question[] masteredQuestions;
+
+    int selectedTab = 0;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,8 +94,86 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
         // Initialize ViewModel
         viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
+        viewModel.getAllQuestions().observe(getViewLifecycleOwner(), new Observer<Question[]>() {
+            @Override
+            public void onChanged(Question[] questions) {
+                allQuestions = questions;
+                if (selectedTab == 0) {
+                    mQuestions = allQuestions;
+                    adapter.setmQuestions(allQuestions);
+                }
+            }
+        });
+        viewModel.getSolvedQuestions().observe(getViewLifecycleOwner(), new Observer<Question[]>() {
+            @Override
+            public void onChanged(Question[] questions) {
+                solvedQuestions = questions;
+                if (selectedTab == 1) {
+                    mQuestions = solvedQuestions;
+                    adapter.setmQuestions(solvedQuestions);
+                }
+            }
+        });
+        viewModel.getConfidentQuestions().observe(getViewLifecycleOwner(), new Observer<Question[]>() {
+            @Override
+            public void onChanged(Question[] questions) {
+                confidentQuestions = questions;
+                if (selectedTab == 2) {
+                    mQuestions = confidentQuestions;
+                    adapter.setmQuestions(confidentQuestions);
+                }
+            }
+        });
+        viewModel.getMasteredQuestions().observe(getViewLifecycleOwner(), new Observer<Question[]>() {
+            @Override
+            public void onChanged(Question[] questions) {
+                masteredQuestions = questions;
+                if (selectedTab == 3) {
+                    mQuestions = masteredQuestions;
+                    adapter.setmQuestions(mQuestions);
+                }
+            }
+        });
+
         // All Questions RecyclerView
         setupRecyclerView(view);
+
+//        TODO: add tablayout onclick
+        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                selectedTab = tab.getPosition();
+                switch (selectedTab){
+                    case 0:
+                        mQuestions = allQuestions;
+                        adapter.setmQuestions(allQuestions);
+                        break;
+                    case 1:
+                        mQuestions = solvedQuestions;
+                        adapter.setmQuestions(solvedQuestions);
+                        break;
+                    case 2:
+                        mQuestions = confidentQuestions;
+                        adapter.setmQuestions(confidentQuestions);
+                        break;
+                    case 3:
+                        mQuestions = masteredQuestions;
+                        adapter.setmQuestions(masteredQuestions);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     /**
@@ -96,16 +184,10 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
      */
     private void setupRecyclerView(@NonNull View view) {
         RecyclerView allQuestionsRecyclerView = view.findViewById(R.id.all_questions_recycler_view);
-        final QuestionsAdapter adapter = new QuestionsAdapter(this);
+        adapter = new QuestionsAdapter(this);
         allQuestionsRecyclerView.setAdapter(adapter);
-        viewModel.getAllQuestions().observe(getViewLifecycleOwner(), new Observer<Question[]>() {
-            @Override
-            public void onChanged(Question[] questions) {
-                Log.d(TAG, "getAllQuestions updated");
-                adapter.setmQuestions(questions);
-                mQuestions = questions;
-            }
-        });
+        mQuestions = allQuestions;
+        adapter.setmQuestions(allQuestions);
     }
 
     @Override
