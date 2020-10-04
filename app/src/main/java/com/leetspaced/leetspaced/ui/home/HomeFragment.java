@@ -29,6 +29,8 @@ import com.leetspaced.leetspaced.ui.QuestionsAdapter;
 public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemClickListener, QuestionDetailsDialog.QuestionProvider{
 
     private static final String TAG = HomeFragment.class.getSimpleName();
+    public static final String STATE_SELECTED_TAB_POSITION = "selectedTabPosition";
+
     private MainViewModel viewModel;
     private Question[] mQuestions;
     private Question lastClickedQuestion;
@@ -91,6 +93,56 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (savedInstanceState != null) {
+            selectedTab = savedInstanceState.getInt(STATE_SELECTED_TAB_POSITION);
+        }
+
+        setupViewModelAndObservers();
+
+        // All Questions RecyclerView
+        setupRecyclerView(view);
+
+//        TODO: add tablayout onclick
+        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
+        tabLayout.getTabAt(selectedTab).select();
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                selectedTab = tab.getPosition();
+                switch (selectedTab){
+                    case 0:
+                        mQuestions = allQuestions;
+                        adapter.setmQuestions(allQuestions);
+                        break;
+                    case 1:
+                        mQuestions = solvedQuestions;
+                        adapter.setmQuestions(solvedQuestions);
+                        break;
+                    case 2:
+                        mQuestions = confidentQuestions;
+                        adapter.setmQuestions(confidentQuestions);
+                        break;
+                    case 3:
+                        mQuestions = masteredQuestions;
+                        adapter.setmQuestions(masteredQuestions);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    private void setupViewModelAndObservers() {
         // Initialize ViewModel
         viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
@@ -134,46 +186,6 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
                 }
             }
         });
-
-        // All Questions RecyclerView
-        setupRecyclerView(view);
-
-//        TODO: add tablayout onclick
-        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                selectedTab = tab.getPosition();
-                switch (selectedTab){
-                    case 0:
-                        mQuestions = allQuestions;
-                        adapter.setmQuestions(allQuestions);
-                        break;
-                    case 1:
-                        mQuestions = solvedQuestions;
-                        adapter.setmQuestions(solvedQuestions);
-                        break;
-                    case 2:
-                        mQuestions = confidentQuestions;
-                        adapter.setmQuestions(confidentQuestions);
-                        break;
-                    case 3:
-                        mQuestions = masteredQuestions;
-                        adapter.setmQuestions(masteredQuestions);
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
     }
 
     /**
@@ -186,8 +198,8 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
         RecyclerView allQuestionsRecyclerView = view.findViewById(R.id.all_questions_recycler_view);
         adapter = new QuestionsAdapter(this);
         allQuestionsRecyclerView.setAdapter(adapter);
-        mQuestions = allQuestions;
-        adapter.setmQuestions(allQuestions);
+//        mQuestions = allQuestions;
+//        adapter.setmQuestions(allQuestions);
     }
 
     @Override
@@ -206,5 +218,12 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
     @Override
     public void updateClickedQuestion(Question question) {
         viewModel.updateQuestion(question);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt(STATE_SELECTED_TAB_POSITION, selectedTab);
+
+        super.onSaveInstanceState(outState);
     }
 }
