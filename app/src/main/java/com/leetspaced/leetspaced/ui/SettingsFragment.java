@@ -1,5 +1,9 @@
 package com.leetspaced.leetspaced.ui;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +20,11 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 
+import com.leetspaced.leetspaced.AlarmReceiver;
+import com.leetspaced.leetspaced.CreateNotificationActivity;
 import com.leetspaced.leetspaced.R;
+
+import java.util.Calendar;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String TAG = SettingsFragment.class.getSimpleName();
@@ -70,6 +78,25 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         updateListPreferenceSummary();
+
+        // Detect Notification Switch Preference
+        if (key.equals(getString(R.string.pref_notification_key)) && sharedPreferences.getBoolean(key, false)) {
+            Log.d("SettingsFragment", "Creating alarm yay");
+            AlarmManager alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(getContext(), AlarmReceiver.class);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            // Set the alarm to start at approximately 2:00 p.m.
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, 8);
+//            calendar.set(Calendar.MINUTE, 55);
+
+        // With setInexactRepeating(), you have to use one of the AlarmManager interval
+        // constants--in this case, AlarmManager.INTERVAL_DAY.
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, alarmIntent);
+        }
     }
 
     @Override

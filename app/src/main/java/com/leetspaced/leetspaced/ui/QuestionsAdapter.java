@@ -57,12 +57,29 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
                     break;
             }
 
+            // Label bucket based on bucket number
+            String bucketName;
+            switch (question.getBucket()){
+                case 1:
+                    bucketName = "Solved";
+                    break;
+                case 2:
+                    bucketName = "Confident";
+                    break;
+                case 3:
+                    bucketName = "Mastered";
+                    break;
+                default:
+                    bucketName = "Unsolved";
+                    break;
+            }
+
             difficultyChip.setText(question.getDifficulty());
             difficultyChip.setChipBackgroundColorResource(color);
             difficultyChip.setClickable(false);
             title.setText(question.getTitle());
             number.setText(String.valueOf(question.getNumber()));
-            bucket.setText(String.valueOf(question.getBucket()));
+            bucket.setText(bucketName);
         }
 
         @Override
