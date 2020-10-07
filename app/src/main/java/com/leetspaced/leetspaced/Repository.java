@@ -47,6 +47,11 @@ public class Repository {
         return mQuestionDao.getTodaysQuestions(utilDate.getTime());
     }
 
+    public Integer getTodaysQuestionsCount(){
+        java.util.Date utilDate = new java.util.Date();
+        return mQuestionDao.getTodaysQuestionsCount(utilDate.getTime());
+    }
+
     public LiveData<Integer> getUnsolvedQuestionsCount(){
         return mQuestionDao.countUnsolvedQuestions();
     }

@@ -2,6 +2,10 @@
 <androidx.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <SwitchPreferenceCompat
+        android:key="@string/pref_notification_key"
+        android:title="@string/pref_notification_title"/>
+
     <ListPreference
         android:title="@string/pref_theme_title"
         android:key="@string/pref_theme_key"

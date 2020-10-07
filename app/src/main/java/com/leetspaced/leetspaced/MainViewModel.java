@@ -18,6 +18,7 @@ public class MainViewModel extends AndroidViewModel {
     LiveData<Question[]> confidentQuestions;
     LiveData<Question[]> masteredQuestions;
 
+    LiveData<Integer> todaysQuestionCount;
     LiveData<Integer> unsolvedQuestionsCount;
     LiveData<Integer> solvedQuestionsCount;
     LiveData<Integer> confidentQuestionsCount;
@@ -32,6 +33,7 @@ public class MainViewModel extends AndroidViewModel {
         confidentQuestions = repository.getConfidentQuestions();
         masteredQuestions = repository.getMasteredQuestions();
 
+//        todaysQuestionCount = repository.getTodaysQuestionsCount();
         unsolvedQuestionsCount = repository.getUnsolvedQuestionsCount();
         solvedQuestionsCount = repository.getSolvedQuestionsCount();
         confidentQuestionsCount = repository.getConfidentQuestionsCount();
@@ -77,4 +79,8 @@ public class MainViewModel extends AndroidViewModel {
     public LiveData<Question[]> getMasteredQuestions() {
         return masteredQuestions;
     }
+
+//    public LiveData<Integer> getTodaysQuestionCount() {
+//        return todaysQuestionCount;
+//    }
 }
