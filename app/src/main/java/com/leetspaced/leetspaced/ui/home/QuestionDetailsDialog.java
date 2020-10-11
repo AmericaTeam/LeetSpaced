@@ -87,7 +87,7 @@ public class QuestionDetailsDialog extends DialogFragment {
         notesEt.setText(personalNotes);
 
         builder.setView(view);
-        builder.setTitle("#" + number + " " + title);
+        builder.setTitle(getString(R.string.dialog_title, number, title));
 
         builder.setPositiveButton(R.string.question_details_dialog_positive_text, new DialogInterface.OnClickListener() {
             @Override
