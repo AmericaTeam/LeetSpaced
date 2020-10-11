@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.leetspaced.leetspaced.R;
 import com.leetspaced.leetspaced.database.Question;
+import com.leetspaced.leetspaced.utils.utils;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.QuestionsAdapterViewHolder> {
 
@@ -44,35 +45,10 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
 
         public void bind(Question question){
             // Difficulty color
-            int color;
-            switch (question.getDifficulty()){
-                case "Easy":
-                    color = R.color.colorLeetcodeEasy;
-                    break;
-                case "Medium":
-                    color = R.color.colorLeetcodeMedium;
-                    break;
-                default:
-                    color = R.color.colorLeetcodeHard;
-                    break;
-            }
+            int color = utils.getDifficultyColor(question.getDifficulty());
 
             // Label bucket based on bucket number
-            String bucketName;
-            switch (question.getBucket()){
-                case 1:
-                    bucketName = "Solved";
-                    break;
-                case 2:
-                    bucketName = "Confident";
-                    break;
-                case 3:
-                    bucketName = "Mastered";
-                    break;
-                default:
-                    bucketName = "Unsolved";
-                    break;
-            }
+            String bucketName = utils.convertQuestionBucketNumberToText(question.getBucket());
 
             difficultyChip.setText(question.getDifficulty());
             difficultyChip.setChipBackgroundColorResource(color);
