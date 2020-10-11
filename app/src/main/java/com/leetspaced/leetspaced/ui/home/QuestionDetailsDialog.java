@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,11 +16,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.preference.PreferenceManager;
-import androidx.room.ColumnInfo;
 
 import com.google.android.material.chip.Chip;
 import com.leetspaced.leetspaced.R;
 import com.leetspaced.leetspaced.database.Question;
+import com.leetspaced.leetspaced.utils.utils;
 
 public class QuestionDetailsDialog extends DialogFragment {
     private int number;
@@ -67,8 +66,7 @@ public class QuestionDetailsDialog extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
         View view = inflater.inflate(R.layout.dialog_question_details, null);
-        TextView numberTv = view.findViewById(R.id.question_number_text_view);
-        TextView titleTv = view.findViewById(R.id.question_title_text_view);
+
         TextView bucketTV = view.findViewById(R.id.question_bucket_text_view);
         Chip difficultyChip = view.findViewById(R.id.difficulty_chip);
         final EditText notesEt = view.findViewById(R.id.question_notes_edit_text);
@@ -82,14 +80,14 @@ public class QuestionDetailsDialog extends DialogFragment {
         number = question.getNumber();
         bucket = question.getBucket();
 
-        numberTv.setText(String.valueOf(number));
-        titleTv.setText(title);
         difficultyChip.setText(difficulty);
-        bucketTV.setText(String.valueOf(bucket));
+        difficultyChip.setChipBackgroundColorResource(utils.getDifficultyColor(difficulty));
+
+        bucketTV.setText(utils.convertQuestionBucketNumberToText(bucket));
         notesEt.setText(personalNotes);
 
         builder.setView(view);
-        builder.setTitle(title);
+        builder.setTitle("#" + number + " " + title);
 
         builder.setPositiveButton(R.string.question_details_dialog_positive_text, new DialogInterface.OnClickListener() {
             @Override
