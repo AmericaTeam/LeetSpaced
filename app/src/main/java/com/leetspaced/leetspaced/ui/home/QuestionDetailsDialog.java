@@ -23,12 +23,16 @@ import com.leetspaced.leetspaced.database.Question;
 import com.leetspaced.leetspaced.utils.utils;
 
 public class QuestionDetailsDialog extends DialogFragment {
+    public static final String TAG = QuestionDetailsDialog.class.getSimpleName();
+    public static final String SAVED_QUESTION_KEY = "question";
+
     private int number;
     private String title;
     private String difficulty;
     private String link;
     private String personalNotes;
     private int bucket;
+    private Question question;
 
     public interface QuestionProvider {
         Question getClickedQuestion();
@@ -36,7 +40,6 @@ public class QuestionDetailsDialog extends DialogFragment {
     }
 
     QuestionProvider questionProvider;
-    public static final String TAG = QuestionDetailsDialog.class.getSimpleName();
 
     public static QuestionDetailsDialog newInstance(){
         return new QuestionDetailsDialog();
@@ -56,8 +59,6 @@ public class QuestionDetailsDialog extends DialogFragment {
     /** The system calls this only when creating the layout in a dialog. */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateDialog");
-        Log.d(TAG, questionProvider.getClickedQuestion().getTitle());
         // The only reason you might override this method when using onCreateView() is
         // to modify any dialog characteristics. For example, the dialog includes a
         // title by default, but your custom layout might not need it. So here you can
@@ -71,8 +72,13 @@ public class QuestionDetailsDialog extends DialogFragment {
         Chip difficultyChip = view.findViewById(R.id.difficulty_chip);
         final EditText notesEt = view.findViewById(R.id.question_notes_edit_text);
 
-        final Question question = questionProvider.getClickedQuestion();
-        Log.d(TAG, String.valueOf(question.getReminderDate()));
+        if (savedInstanceState == null) {
+            question = questionProvider.getClickedQuestion();
+        }
+        else {
+            question = utils.stringToQuestion(savedInstanceState.getString(SAVED_QUESTION_KEY));
+        }
+
         title = question.getTitle();
         link = question.getLink();
         difficulty = question.getDifficulty();
@@ -134,5 +140,11 @@ public class QuestionDetailsDialog extends DialogFragment {
         });
 
         return builder.create();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString(SAVED_QUESTION_KEY, utils.questionToString(question));
+        super.onSaveInstanceState(outState);
     }
 }

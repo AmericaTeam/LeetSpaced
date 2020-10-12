@@ -2,9 +2,14 @@ package com.leetspaced.leetspaced.utils;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.google.gson.Gson;
 import com.leetspaced.leetspaced.R;
+import com.leetspaced.leetspaced.database.Question;
 
 public class utils {
+
+    public static Gson gson = new Gson();
+
     public static String convertQuestionBucketNumberToText(int bucketNumber) {
         switch (bucketNumber){
             case 1:
@@ -40,5 +45,13 @@ public class utils {
             default:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         }
+    }
+
+    public static String questionToString (Question  question) {
+        return gson.toJson(question);
+    }
+
+    public static Question stringToQuestion (String string) {
+        return gson.fromJson(string, Question.class);
     }
 }

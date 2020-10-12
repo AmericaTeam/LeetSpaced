@@ -10,5 +10,5 @@
     <color name="colorLeetcodeHard">#d9534f</color>
 
     <!-- Question Heading TextView -->
-    <color name="colorQuestionListViewItemHeading">#000</color>
+    <color name="colorHeadings">#000</color>
 </resources>
