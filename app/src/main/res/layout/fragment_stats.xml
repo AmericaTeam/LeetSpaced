@@ -30,7 +30,7 @@
                 android:id="@+id/mastered_questions_count_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000"
+                android:textColor="@color/colorHeadings"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 tools:text="6"/>
@@ -65,7 +65,7 @@
                 android:id="@+id/confident_questions_count_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000"
+                android:textColor="@color/colorHeadings"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 tools:text="6"/>
@@ -99,7 +99,7 @@
                 android:id="@+id/solved_questions_count_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000"
+                android:textColor="@color/colorHeadings"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 tools:text="6"/>
@@ -133,7 +133,7 @@
                 android:id="@+id/unsolved_questions_count_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000"
+                android:textColor="@color/colorHeadings"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 tools:text="6"/>

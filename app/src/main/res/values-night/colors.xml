@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Question Heading TextView -->
-    <color name="colorQuestionListViewItemHeading">#FFF</color>
+    <color name="colorHeadings">#FFF</color>
 </resources>
