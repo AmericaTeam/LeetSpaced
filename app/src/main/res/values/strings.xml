@@ -51,4 +51,5 @@
     <!--  Question onClick details Dialog  -->
     <string name="dialog_edittext_hint_comments">Comments</string>
     <string name="dialog_title">#%1$d %2$s</string>
+    <string name="today_fragment_headline">Questions for today</string>
 </resources>
