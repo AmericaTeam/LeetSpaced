@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.leetspaced.leetspaced.R;
+import com.leetspaced.leetspaced.utils.utils;
 
 public class SettingsActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -30,19 +31,8 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(getString(R.string.pref_theme_key))){
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            String theme = preferences.getString(getString(R.string.pref_theme_key), getString(R.string.pref_theme_key_system_default));
-
-            switch (theme){
-                case "Light":
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    break;
-                case "Dark":
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    break;
-                default:
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-            }
+            String theme = sharedPreferences.getString(getString(R.string.pref_theme_key), getString(R.string.pref_theme_key_system_default));
+            utils.setTheme(theme);
         }
     }
 

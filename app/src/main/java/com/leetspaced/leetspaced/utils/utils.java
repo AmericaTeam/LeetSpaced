@@ -1,5 +1,7 @@
 package com.leetspaced.leetspaced.utils;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.leetspaced.leetspaced.R;
 
 public class utils {
@@ -24,6 +26,19 @@ public class utils {
                 return R.color.colorLeetcodeMedium;
             default:
                 return R.color.colorLeetcodeHard;
+        }
+    }
+
+    public static void setTheme (String theme) {
+        switch (theme){
+            case "Light":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case "Dark":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            default:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         }
     }
 }

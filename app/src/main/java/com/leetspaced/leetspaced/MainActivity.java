@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -19,6 +21,7 @@ import com.leetspaced.leetspaced.ui.SettingsActivity;
 import com.leetspaced.leetspaced.ui.StatsFragment;
 import com.leetspaced.leetspaced.ui.TodayFragment;
 import com.leetspaced.leetspaced.ui.home.HomeFragment;
+import com.leetspaced.leetspaced.utils.utils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String theme = sharedPreferences.getString(getString(R.string.pref_theme_key), getString(R.string.pref_theme_key_system_default));
+        utils.setTheme(theme);
 
         if (savedInstanceState == null) {
             // Default Fragment
