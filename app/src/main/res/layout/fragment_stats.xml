@@ -17,8 +17,8 @@
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_baseline_star_24"
-            app:tint="?android:textColorPrimary"/>
+            android:src="@drawable/ic_mastered_24px"
+            app:tint="?android:colorAccent"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,8 +51,8 @@
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_baseline_check_24"
-            app:tint="?android:textColorPrimary"/>
+            android:src="@drawable/ic_confident_24px"
+            app:tint="?android:colorAccent"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -86,8 +86,8 @@
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_baseline_edit_24"
-            app:tint="?android:textColorPrimary"/>
+            android:src="@drawable/ic_solved_24px"
+            app:tint="?android:colorAccent"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -120,8 +120,8 @@
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_baseline_help_outline_24"
-            app:tint="?android:textColorPrimary"/>
+            android:src="@drawable/ic_unsolved_24px"
+            app:tint="?android:colorAccent"/>
 
         <LinearLayout
             android:layout_width="match_parent"
