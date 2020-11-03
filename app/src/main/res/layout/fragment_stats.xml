@@ -18,7 +18,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_mastered_24px"
-            app:tint="?android:colorAccent"/>
+            app:tint="?android:colorPrimary"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,7 +52,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_confident_24px"
-            app:tint="?android:colorAccent"/>
+            app:tint="?android:colorPrimary"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,7 +87,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_solved_24px"
-            app:tint="?android:colorAccent"/>
+            app:tint="?android:colorPrimary"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -121,7 +121,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_unsolved_24px"
-            app:tint="?android:colorAccent"/>
+            app:tint="?android:colorPrimary"/>
 
         <LinearLayout
             android:layout_width="match_parent"
