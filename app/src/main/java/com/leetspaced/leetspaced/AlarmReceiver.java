@@ -48,7 +48,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         String textContent = "You have " + todayTasksCount + " questions to review today.";
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.color.colorPrimary)
                 .setContentTitle(textTitle)
                 .setContentText(textContent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
