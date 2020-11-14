@@ -1,5 +1,5 @@
 # LeetSpaced
-LeetSpaced is a reminder app that reminds you to review a problem after you have first solved it.
+An Android app that reminds you to review a problem after you have first solved it.
 
 <img src="https://user-images.githubusercontent.com/6264813/99135286-9577cd00-25ef-11eb-94cd-309937ff5811.png" width="240" />
 
