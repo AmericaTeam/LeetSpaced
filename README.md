@@ -13,6 +13,10 @@ Move from Unsolved to Mastered by solving and reviewing problems. After a proble
 
 <img src="https://user-images.githubusercontent.com/6264813/99135289-96106380-25ef-11eb-8086-6bac371a33b3.png" width="240" />
 
+LeetSpaced also has a dark theme.
+
+<img src="https://user-images.githubusercontent.com/6264813/99135285-94df3680-25ef-11eb-9170-b4791d14289d.png" width="240" />
+
 Change the reminder durations and theme from the settings.
 
 <img src="https://user-images.githubusercontent.com/6264813/99135287-9577cd00-25ef-11eb-9d3a-28c182a15cc3.png" width="240" />
