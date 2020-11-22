@@ -14,6 +14,15 @@
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:padding="16dp"/>
 
+    <TextView
+        android:id="@+id/today_empty_screen_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/today_empty_screen_message"
+        android:padding="16dp"
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/today_questions_recycler_view"
         android:layout_width="match_parent"
