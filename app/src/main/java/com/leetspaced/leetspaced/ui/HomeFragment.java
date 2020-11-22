@@ -1,11 +1,10 @@
-package com.leetspaced.leetspaced.ui.home;
+package com.leetspaced.leetspaced.ui;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,14 +18,13 @@ import com.google.android.material.tabs.TabLayout;
 import com.leetspaced.leetspaced.MainViewModel;
 import com.leetspaced.leetspaced.R;
 import com.leetspaced.leetspaced.database.Question;
-import com.leetspaced.leetspaced.ui.QuestionsAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemClickListener, QuestionDetailsDialog.QuestionProvider{
+public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemClickListener, QuestionDetailsDialog.QuestionProvider {
 
     private static final String TAG = HomeFragment.class.getSimpleName();
     public static final String STATE_SELECTED_TAB_POSITION = "selectedTabPosition";

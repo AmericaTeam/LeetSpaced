@@ -1,4 +1,4 @@
-package com.leetspaced.leetspaced.ui.home;
+package com.leetspaced.leetspaced.ui;
 
 import android.app.Dialog;
 import android.content.Context;
