@@ -52,4 +52,8 @@
     <string name="dialog_edittext_hint_comments">Comments</string>
     <string name="dialog_title">#%1$d %2$s</string>
     <string name="today_fragment_headline">Questions for today</string>
+    <string name="today_empty_screen_message">No questions for today!</string>
+    <string name="home_solved_empty_screen_message">Try solving some unsolved questions!</string>
+    <string name="home_confident_empty_screen_message">Try reviewing some solved questions!</string>
+    <string name="home_mastered_empty_screen_message">Try reviewing some confident questions!</string>
 </resources>

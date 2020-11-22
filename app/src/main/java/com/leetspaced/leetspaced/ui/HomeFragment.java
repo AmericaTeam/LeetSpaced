@@ -1,11 +1,10 @@
-package com.leetspaced.leetspaced.ui.home;
+package com.leetspaced.leetspaced.ui;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,19 +13,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.leetspaced.leetspaced.MainViewModel;
 import com.leetspaced.leetspaced.R;
 import com.leetspaced.leetspaced.database.Question;
-import com.leetspaced.leetspaced.ui.QuestionsAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemClickListener, QuestionDetailsDialog.QuestionProvider{
+public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemClickListener, QuestionDetailsDialog.QuestionProvider {
 
     private static final String TAG = HomeFragment.class.getSimpleName();
     public static final String STATE_SELECTED_TAB_POSITION = "selectedTabPosition";
@@ -35,6 +34,8 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
     private Question[] mQuestions;
     private Question lastClickedQuestion;
     private QuestionsAdapter adapter;
+    private RecyclerView questionsRecyclerView;
+    private TextView emptyScreenMsgTextView;
 
     Question[] allQuestions;
     Question[] solvedQuestions;
@@ -42,6 +43,7 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
     Question[] masteredQuestions;
 
     int selectedTab = 0;
+    String emptyScreenMessage = "";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -105,12 +107,16 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
     }
 
     private void setupTabLayout(@NonNull View view) {
+        emptyScreenMsgTextView = view.findViewById(R.id.home_empty_screen_text_view);
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         tabLayout.getTabAt(selectedTab).select();
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 selectedTab = tab.getPosition();
+
+                // We are using mQuestions here so that we know which was the last question we clicked on
+                // based on the tab we are on.
                 switch (selectedTab){
                     case 0:
                         mQuestions = allQuestions;
@@ -119,16 +125,21 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
                     case 1:
                         mQuestions = solvedQuestions;
                         adapter.setmQuestions(solvedQuestions);
+                        emptyScreenMessage = getString(R.string.home_solved_empty_screen_message);
                         break;
                     case 2:
                         mQuestions = confidentQuestions;
                         adapter.setmQuestions(confidentQuestions);
+                        emptyScreenMessage = getString(R.string.home_confident_empty_screen_message);
                         break;
                     case 3:
                         mQuestions = masteredQuestions;
                         adapter.setmQuestions(masteredQuestions);
+                        emptyScreenMessage = getString(R.string.home_mastered_empty_screen_message);
                         break;
                 }
+
+                showMessageIfScreenEmpty();
             }
 
             @Override
@@ -143,10 +154,41 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
         });
     }
 
+    private void showMessageIfScreenEmpty() {
+        switch (selectedTab){
+            case 0:
+                emptyScreenMessage = "";
+                break;
+            case 1:
+                emptyScreenMessage = getString(R.string.home_solved_empty_screen_message);
+                break;
+            case 2:
+                emptyScreenMessage = getString(R.string.home_confident_empty_screen_message);
+                break;
+            case 3:
+                emptyScreenMessage = getString(R.string.home_mastered_empty_screen_message);
+                break;
+        }
+        if (mQuestions == null || mQuestions.length == 0 && selectedTab != 0) {
+            emptyScreenMsgTextView.setVisibility(View.VISIBLE);
+            emptyScreenMsgTextView.setText(emptyScreenMessage);
+            questionsRecyclerView.setVisibility(View.GONE);
+        }
+        else {
+            emptyScreenMsgTextView.setVisibility(View.GONE);
+            questionsRecyclerView.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void setupViewModelAndObservers() {
         // Initialize ViewModel
         viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
+        // We are using mQuestions here so that we know which was the last question we clicked on
+        // based on the tab we are on.
+        // We are checking the selected tab here because the data might change while we are on the
+        // current tab (reviewing a question or updating notes) and the changes need to reflect on
+        // the recyclerView and mQuestions selected.
         viewModel.getAllQuestions().observe(getViewLifecycleOwner(), new Observer<Question[]>() {
             @Override
             public void onChanged(Question[] questions) {
@@ -154,6 +196,7 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
                 if (selectedTab == 0) {
                     mQuestions = allQuestions;
                     adapter.setmQuestions(allQuestions);
+
                 }
             }
         });
@@ -164,6 +207,7 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
                 if (selectedTab == 1) {
                     mQuestions = solvedQuestions;
                     adapter.setmQuestions(solvedQuestions);
+                    showMessageIfScreenEmpty();
                 }
             }
         });
@@ -174,6 +218,7 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
                 if (selectedTab == 2) {
                     mQuestions = confidentQuestions;
                     adapter.setmQuestions(confidentQuestions);
+                    showMessageIfScreenEmpty();
                 }
             }
         });
@@ -183,7 +228,8 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
                 masteredQuestions = questions;
                 if (selectedTab == 3) {
                     mQuestions = masteredQuestions;
-                    adapter.setmQuestions(mQuestions);
+                    adapter.setmQuestions(masteredQuestions);
+                    showMessageIfScreenEmpty();
                 }
             }
         });
@@ -196,9 +242,9 @@ public class HomeFragment extends Fragment implements QuestionsAdapter.ListItemC
      * @param view
      */
     private void setupRecyclerView(@NonNull View view) {
-        RecyclerView allQuestionsRecyclerView = view.findViewById(R.id.all_questions_recycler_view);
+        questionsRecyclerView = view.findViewById(R.id.all_questions_recycler_view);
         adapter = new QuestionsAdapter(this);
-        allQuestionsRecyclerView.setAdapter(adapter);
+        questionsRecyclerView.setAdapter(adapter);
     }
 
     @Override

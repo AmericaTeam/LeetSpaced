@@ -13,11 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.leetspaced.leetspaced.MainViewModel;
 import com.leetspaced.leetspaced.R;
 import com.leetspaced.leetspaced.database.Question;
-import com.leetspaced.leetspaced.ui.home.QuestionDetailsDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -89,7 +89,8 @@ public class TodayFragment extends Fragment implements QuestionsAdapter.ListItem
     }
 
     private void setupRecyclerView(@NonNull View view) {
-        RecyclerView allQuestionsRecyclerView = view.findViewById(R.id.today_questions_recycler_view);
+        final TextView emptyScreenMsgTextView = view.findViewById(R.id.today_empty_screen_text_view);
+        final RecyclerView allQuestionsRecyclerView = view.findViewById(R.id.today_questions_recycler_view);
         final QuestionsAdapter adapter = new QuestionsAdapter(this);
         allQuestionsRecyclerView.setAdapter(adapter);
 
@@ -98,6 +99,15 @@ public class TodayFragment extends Fragment implements QuestionsAdapter.ListItem
             public void onChanged(Question[] questions) {
                 adapter.setmQuestions(questions);
                 mQuestions = questions;
+
+                if (mQuestions.length == 0) {
+                    allQuestionsRecyclerView.setVisibility(View.GONE);
+                    emptyScreenMsgTextView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    allQuestionsRecyclerView.setVisibility(View.VISIBLE);
+                    emptyScreenMsgTextView.setVisibility(View.GONE);
+                }
             }
         });
     }
